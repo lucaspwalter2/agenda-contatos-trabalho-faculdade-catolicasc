@@ -2,6 +2,7 @@ TRABALHO FINAL - AGENDA DE CONTATOS
 
 Integrantes:
 - Lucas
+- Murilo
 
 Explicacao do problema:
 Uma empresa precisa guardar contatos de clientes, fornecedores e parceiros de forma organizada. Antes, os dados ficavam em papeis e planilhas simples, dificultando a consulta e aumentando o risco de perda.
