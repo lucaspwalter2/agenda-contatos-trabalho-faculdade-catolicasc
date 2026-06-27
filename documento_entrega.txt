@@ -1,0 +1,80 @@
+TRABALHO FINAL - AGENDA DE CONTATOS
+
+Integrantes:
+- Lucas
+
+Explicacao do problema:
+Uma empresa precisa guardar contatos de clientes, fornecedores e parceiros de forma organizada. Antes, os dados ficavam em papeis e planilhas simples, dificultando a consulta e aumentando o risco de perda.
+
+Explicacao da solucao:
+Foi criado um programa em C ANSI que funciona no console. Ele permite incluir, listar, consultar e excluir contatos. Os contatos ficam guardados em um vetor e tambem sao salvos no arquivo contatos.txt.
+
+Dados usados em cada contato:
+- Nome
+- Telefone
+- E-mail
+- Cidade
+
+Funcoes utilizadas:
+- limpar_enter: remove o ENTER do final de uma string.
+- ler_texto: le textos digitados pelo usuario.
+- pausar: espera o usuario pressionar ENTER.
+- salvar_contatos: grava os contatos no arquivo contatos.txt.
+- carregar_contatos: le os contatos salvos no arquivo contatos.txt.
+- incluir_contato: cadastra um novo contato.
+- mostrar_contato: mostra os dados de um contato.
+- listar_contatos: mostra todos os contatos cadastrados.
+- consultar_contato: procura contatos pelo nome ou parte do nome.
+- excluir_contato: exclui um contato pelo nome exato.
+- mostrar_menu: mostra o menu principal.
+- main: controla o programa usando repeticao e switch.
+
+Conteudos obrigatorios usados:
+- Variaveis
+- Entrada e saida de dados
+- Operadores aritmeticos
+- Estrutura condicional
+- Switch
+- Estruturas de repeticao
+- Vetores
+- Funcoes
+- Strings com vetores de caracteres
+
+Bonus usados:
+- Gravacao e leitura em arquivo
+- typedef struct
+- string.h
+- Pesquisa parcial pelo nome
+- Melhoria simples na interface
+
+Como compilar:
+gcc -ansi -Wall -Wextra -pedantic agenda_contatos.c -o agenda_contatos
+
+Como executar:
+./agenda_contatos
+
+Exemplo de execucao:
+==============================
+      AGENDA DE CONTATOS
+==============================
+1 - Incluir contato
+2 - Listar contatos
+3 - Consultar contato pelo nome
+4 - Excluir contato
+5 - Sair
+Escolha uma opcao: 1
+
+=== Incluir contato ===
+Nome: Maria Silva
+Telefone: 99999-9999
+E-mail: maria@email.com
+Cidade: Sao Paulo
+
+Contato cadastrado com sucesso.
+
+Capturas de tela:
+- Tela do menu principal.
+- Tela de inclusao de contato.
+- Tela de listagem de contatos.
+- Tela de consulta por nome.
+- Tela de exclusao de contato.
