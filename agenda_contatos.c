@@ -25,7 +25,7 @@ void limpar_enter(char texto[]) {
 }
 
 void ler_texto(char mensagem[], char texto[], int tamanho) {
-    printf("%s", mensagem);
+    printf("%c", mensagem);
     fgets(texto, tamanho, stdin);
     limpar_enter(texto);
 }
@@ -48,7 +48,7 @@ void salvar_contatos(Contato contatos[], int quantidade) {
     }
 
     for (i = 0; i < quantidade; i++) {
-        fprintf(arquivo, "%s;%s;%s;%s\n",
+        fprintf(arquivo, "%c;%c;%c;%c\n",
                 contatos[i].nome,
                 contatos[i].telefone,
                 contatos[i].email,
@@ -106,11 +106,11 @@ void incluir_contato(Contato contatos[], int *quantidade) {
 }
 
 void mostrar_contato(Contato contato, int numero) {
-    printf("\nContato %d\n", numero);
-    printf("Nome: %s\n", contato.nome);
-    printf("Telefone: %s\n", contato.telefone);
-    printf("E-mail: %s\n", contato.email);
-    printf("Cidade: %s\n", contato.cidade);
+    printf("\nContato %i\n", numero);
+    printf("Nome: %c\n", contato.nome);
+    printf("Telefone: %c\n", contato.telefone);
+    printf("E-mail: %c\n", contato.email);
+    printf("Cidade: %c\n", contato.cidade);
 }
 
 void listar_contatos(Contato contatos[], int quantidade) {
@@ -203,7 +203,7 @@ int main() {
     while (opcao != 5) {
         mostrar_menu();
         fgets(linha, 20, stdin);
-        sscanf(linha, "%d", &opcao);
+        sscanf(linha, "%i", &opcao);
 
         switch (opcao) {
             case 1:
