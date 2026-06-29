@@ -1,8 +1,8 @@
 TRABALHO FINAL - AGENDA DE CONTATOS
 
 Integrantes:
-- Lucas
-- Murilo
+- Lucas Pereira Walter
+- Murilo Hilleshaim da Costa
 
 Explicacao do problema:
 Uma empresa precisa guardar contatos de clientes, fornecedores e parceiros de forma organizada. Antes, os dados ficavam em papeis e planilhas simples, dificultando a consulta e aumentando o risco de perda.
@@ -17,17 +17,14 @@ Dados usados em cada contato:
 - Cidade
 
 Funcoes utilizadas:
-- limpar_enter: remove o ENTER do final de uma string.
-- ler_texto: le textos digitados pelo usuario.
-- pausar: espera o usuario pressionar ENTER.
-- salvar_contatos: grava os contatos no arquivo contatos.txt.
-- carregar_contatos: le os contatos salvos no arquivo contatos.txt.
-- incluir_contato: cadastra um novo contato.
-- mostrar_contato: mostra os dados de um contato.
-- listar_contatos: mostra todos os contatos cadastrados.
-- consultar_contato: procura contatos pelo nome ou parte do nome.
-- excluir_contato: exclui um contato pelo nome exato.
-- mostrar_menu: mostra o menu principal.
+- salvar: grava os contatos no arquivo contatos.txt.
+- carregar: le os contatos salvos no arquivo contatos.txt.
+- incluir: cadastra um novo contato.
+- mostrar: mostra os dados de um contato.
+- listar: mostra todos os contatos cadastrados.
+- consultar: procura contatos pelo nome ou parte do nome.
+- excluir: exclui um contato pelo nome exato.
+- menu: mostra o menu principal.
 - main: controla o programa usando repeticao e switch.
 
 Conteudos obrigatorios usados:
@@ -55,23 +52,19 @@ Como executar:
 ./agenda_contatos
 
 Exemplo de execucao:
-==============================
-      AGENDA DE CONTATOS
-==============================
+===== AGENDA DE CONTATOS =====
 1 - Incluir contato
 2 - Listar contatos
 3 - Consultar contato pelo nome
 4 - Excluir contato
 5 - Sair
-Escolha uma opcao: 1
-
-=== Incluir contato ===
+Opcao: 1
 Nome: Maria Silva
 Telefone: 99999-9999
 E-mail: maria@email.com
 Cidade: Sao Paulo
 
-Contato cadastrado com sucesso.
+Contato cadastrado.
 
 Capturas de tela:
 - Tela do menu principal.

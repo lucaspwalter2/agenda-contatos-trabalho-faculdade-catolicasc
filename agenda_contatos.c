@@ -1,169 +1,187 @@
 #include <stdio.h>
 #include <string.h>
 
-#define MAX_CONTATOS 100
+#define MAX 100
 #define TAM_NOME 80
 #define TAM_TELEFONE 30
 #define TAM_EMAIL 80
 #define TAM_CIDADE 60
-#define ARQUIVO "contatos.txt"
 
 typedef struct {
-    char nome[TAM_NOME], telefone[TAM_TELEFONE], email[TAM_EMAIL], cidade[TAM_CIDADE];
+    char nome[TAM_NOME];
+    char telefone[TAM_TELEFONE];
+    char email[TAM_EMAIL];
+    char cidade[TAM_CIDADE];
 } Contato;
 
-void limpar_enter(char texto[]) {
-    int tam = strlen(texto);
-    if (tam > 0 && texto[tam - 1] == '\n') texto[tam - 1] = '\0';
-}
+Contato contatos[MAX];
+int quantidade = 0;
 
-void ler_texto(char mensagem[], char texto[], int tamanho) {
-    printf("%s", mensagem);
-    fgets(texto, tamanho, stdin);
-    limpar_enter(texto);
-}
-
-void pausar() {
-    char enter[5];
-    printf("\nPressione ENTER para continuar...");
-    fgets(enter, 5, stdin);
-}
-
-void salvar_contatos(Contato contatos[], int qtd) {
-    FILE *arquivo = fopen(ARQUIVO, "w");
+void salvar() {
+    FILE *arquivo;
     int i;
 
+    arquivo = fopen("contatos.txt", "w");
     if (arquivo == NULL) {
-        printf("\nNao foi possivel salvar os contatos.\n");
+        printf("Erro ao salvar arquivo.\n");
         return;
     }
 
-    for (i = 0; i < qtd; i++)
+    for (i = 0; i < quantidade; i++) {
         fprintf(arquivo, "%s;%s;%s;%s\n", contatos[i].nome, contatos[i].telefone,
                 contatos[i].email, contatos[i].cidade);
+    }
 
     fclose(arquivo);
 }
 
-int carregar_contatos(Contato contatos[]) {
-    FILE *arquivo = fopen(ARQUIVO, "r");
-    int qtd = 0;
+void carregar() {
+    FILE *arquivo;
 
-    if (arquivo == NULL) return 0;
+    arquivo = fopen("contatos.txt", "r");
+    if (arquivo == NULL) return;
 
-    while (qtd < MAX_CONTATOS &&
+    while (quantidade < MAX &&
            fscanf(arquivo, "%79[^;];%29[^;];%79[^;];%59[^\n]\n",
-                  contatos[qtd].nome, contatos[qtd].telefone,
-                  contatos[qtd].email, contatos[qtd].cidade) == 4)
-        qtd++;
+                  contatos[quantidade].nome,
+                  contatos[quantidade].telefone,
+                  contatos[quantidade].email,
+                  contatos[quantidade].cidade) == 4) {
+        quantidade++;
+    }
 
     fclose(arquivo);
-    return qtd;
 }
 
-void mostrar_contato(Contato contato, int numero) {
-    printf("\nContato %i\n", numero);
-    printf("Nome: %s\nTelefone: %s\nE-mail: %s\nCidade: %s\n",
-           contato.nome, contato.telefone, contato.email, contato.cidade);
-}
-
-void incluir_contato(Contato contatos[], int *qtd) {
-    if (*qtd >= MAX_CONTATOS) {
-        printf("\nAgenda cheia.\n");
+void incluir() {
+    if (quantidade == MAX) {
+        printf("Agenda cheia.\n");
         return;
     }
 
-    printf("\n=== Incluir contato ===\n");
-    ler_texto("Nome: ", contatos[*qtd].nome, TAM_NOME);
-    ler_texto("Telefone: ", contatos[*qtd].telefone, TAM_TELEFONE);
-    ler_texto("E-mail: ", contatos[*qtd].email, TAM_EMAIL);
-    ler_texto("Cidade: ", contatos[*qtd].cidade, TAM_CIDADE);
+    printf("\nNome: ");
+    scanf(" %79[^\n]", contatos[quantidade].nome);
 
-    if (strlen(contatos[*qtd].nome) == 0 || strlen(contatos[*qtd].telefone) == 0) {
-        printf("\nNome e telefone sao obrigatorios.\n");
-        return;
-    }
+    printf("Telefone: ");
+    scanf(" %29[^\n]", contatos[quantidade].telefone);
 
-    (*qtd)++;
-    salvar_contatos(contatos, *qtd);
-    printf("\nContato cadastrado com sucesso.\n");
+    printf("E-mail: ");
+    scanf(" %79[^\n]", contatos[quantidade].email);
+
+    printf("Cidade: ");
+    scanf(" %59[^\n]", contatos[quantidade].cidade);
+
+    quantidade++;
+    salvar();
+    printf("Contato cadastrado.\n");
 }
 
-void listar_contatos(Contato contatos[], int qtd) {
+void mostrar(int i) {
+    printf("\nContato %i\n", i + 1);
+    printf("Nome: %s\n", contatos[i].nome);
+    printf("Telefone: %s\n", contatos[i].telefone);
+    printf("E-mail: %s\n", contatos[i].email);
+    printf("Cidade: %s\n", contatos[i].cidade);
+}
+
+void listar() {
     int i;
-    printf("\n=== Lista de contatos ===\n");
 
-    if (qtd == 0) {
+    if (quantidade == 0) {
         printf("Nenhum contato cadastrado.\n");
         return;
     }
 
-    for (i = 0; i < qtd; i++) mostrar_contato(contatos[i], i + 1);
+    for (i = 0; i < quantidade; i++) {
+        mostrar(i);
+    }
 }
 
-void consultar_contato(Contato contatos[], int qtd) {
+void consultar() {
     char busca[TAM_NOME];
-    int i, encontrou = 0;
+    int i, achou;
 
-    printf("\n=== Consultar contato ===\n");
-    ler_texto("Digite o nome ou parte do nome: ", busca, TAM_NOME);
+    achou = 0;
+    printf("\nDigite o nome ou parte do nome: ");
+    scanf(" %79[^\n]", busca);
 
-    for (i = 0; i < qtd; i++) {
+    for (i = 0; i < quantidade; i++) {
         if (strstr(contatos[i].nome, busca) != NULL) {
-            mostrar_contato(contatos[i], i + 1);
-            encontrou = 1;
+            mostrar(i);
+            achou = 1;
         }
     }
 
-    if (!encontrou) printf("\nContato nao encontrado.\n");
+    if (achou == 0) {
+        printf("Contato nao encontrado.\n");
+    }
 }
 
-void excluir_contato(Contato contatos[], int *qtd) {
+void excluir() {
     char busca[TAM_NOME];
-    int i, j;
+    int i, j, achou;
 
-    printf("\n=== Excluir contato ===\n");
-    ler_texto("Digite o nome exato do contato: ", busca, TAM_NOME);
+    achou = 0;
+    printf("\nDigite o nome exato: ");
+    scanf(" %79[^\n]", busca);
 
-    for (i = 0; i < *qtd; i++) {
+    for (i = 0; i < quantidade; i++) {
         if (strcmp(contatos[i].nome, busca) == 0) {
-            for (j = i; j < *qtd - 1; j++) contatos[j] = contatos[j + 1];
-            (*qtd)--;
-            salvar_contatos(contatos, *qtd);
-            printf("\nContato excluido com sucesso.\n");
-            return;
+            for (j = i; j < quantidade - 1; j++) {
+                contatos[j] = contatos[j + 1];
+            }
+
+            quantidade--;
+            salvar();
+            achou = 1;
+            printf("Contato excluido.\n");
+            break;
         }
     }
 
-    printf("\nContato nao encontrado.\n");
+    if (achou == 0) {
+        printf("Contato nao encontrado.\n");
+    }
 }
 
-void mostrar_menu() {
-    printf("\n==============================\n");
-    printf("      AGENDA DE CONTATOS\n");
-    printf("==============================\n");
-    printf("1 - Incluir contato\n2 - Listar contatos\n");
-    printf("3 - Consultar contato pelo nome\n4 - Excluir contato\n5 - Sair\n");
-    printf("Escolha uma opcao: ");
+void menu() {
+    printf("\n===== AGENDA DE CONTATOS =====\n");
+    printf("1 - Incluir contato\n");
+    printf("2 - Listar contatos\n");
+    printf("3 - Consultar contato pelo nome\n");
+    printf("4 - Excluir contato\n");
+    printf("5 - Sair\n");
+    printf("Opcao: ");
 }
 
 int main() {
-    Contato contatos[MAX_CONTATOS];
-    int qtd = carregar_contatos(contatos), opcao = 0;
-    char linha[20];
+    int opcao;
+
+    carregar();
+    opcao = 0;
 
     while (opcao != 5) {
-        mostrar_menu();
-        fgets(linha, 20, stdin);
-        sscanf(linha, "%i", &opcao);
+        menu();
+        scanf("%i", &opcao);
 
         switch (opcao) {
-            case 1: incluir_contato(contatos, &qtd); pausar(); break;
-            case 2: listar_contatos(contatos, qtd); pausar(); break;
-            case 3: consultar_contato(contatos, qtd); pausar(); break;
-            case 4: excluir_contato(contatos, &qtd); pausar(); break;
-            case 5: printf("\nPrograma encerrado.\n"); break;
-            default: printf("\nOpcao invalida.\n"); pausar();
+            case 1:
+                incluir();
+                break;
+            case 2:
+                listar();
+                break;
+            case 3:
+                consultar();
+                break;
+            case 4:
+                excluir();
+                break;
+            case 5:
+                printf("Programa encerrado.\n");
+                break;
+            default:
+                printf("Opcao invalida.\n");
         }
     }
 
