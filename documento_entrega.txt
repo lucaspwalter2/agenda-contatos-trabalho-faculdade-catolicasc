@@ -8,7 +8,7 @@ Explicacao do problema:
 Uma empresa precisa guardar contatos de clientes, fornecedores e parceiros de forma organizada. Antes, os dados ficavam em papeis e planilhas simples, dificultando a consulta e aumentando o risco de perda.
 
 Explicacao da solucao:
-Foi criado um programa em C ANSI que funciona no console. Ele permite incluir, listar, consultar e excluir contatos. Os contatos ficam guardados em um vetor e tambem sao salvos no arquivo contatos.txt.
+Foi criado um programa em C ANSI que funciona no console. Ele permite incluir, listar, consultar, excluir, alterar e ordenar contatos. Os contatos ficam guardados em um vetor e tambem sao salvos no arquivo contatos.txt.
 
 Dados usados em cada contato:
 - Nome
@@ -17,14 +17,22 @@ Dados usados em cada contato:
 - Cidade
 
 Funcoes utilizadas:
+- gotoxy: posiciona o cursor na tela, usando windows.h no Windows.
+- limparTela: limpa a tela antes de mostrar o menu.
+- cabecalho: mostra o titulo da agenda.
 - salvar: grava os contatos no arquivo contatos.txt.
 - carregar: le os contatos salvos no arquivo contatos.txt.
+- ordenar: coloca os contatos em ordem alfabetica pelo nome.
 - incluir: cadastra um novo contato.
 - mostrar: mostra os dados de um contato.
 - listar: mostra todos os contatos cadastrados.
 - consultar: procura contatos pelo nome ou parte do nome.
+- alterar: altera os dados de um contato pelo nome exato.
 - excluir: exclui um contato pelo nome exato.
 - menu: mostra o menu principal.
+- pausar: espera o usuario pressionar ENTER antes de voltar ao menu.
+- ordenarMenu: chama a ordenacao pelo menu e salva o arquivo.
+- lerOpcao: le a opcao escolhida no menu.
 - main: controla o programa usando repeticao e switch.
 
 Conteudos obrigatorios usados:
@@ -42,7 +50,10 @@ Bonus usados:
 - Gravacao e leitura em arquivo
 - typedef struct
 - string.h
+- windows.h e funcao gotoxy no Windows
+- Alteracao de contatos
 - Pesquisa parcial pelo nome
+- Ordenacao alfabetica dos contatos
 - Melhoria simples na interface
 
 Como compilar:
@@ -52,12 +63,19 @@ Como executar:
 ./agenda_contatos
 
 Exemplo de execucao:
-===== AGENDA DE CONTATOS =====
+=====================================
+        AGENDA DE CONTATOS
+=====================================
 1 - Incluir contato
 2 - Listar contatos
 3 - Consultar contato pelo nome
 4 - Excluir contato
 5 - Sair
+6 - Alterar contato
+7 - Ordenar contatos por nome
+
+Total de contatos: 0
+-------------------------------------
 Opcao: 1
 Nome: Maria Silva
 Telefone: 99999-9999
@@ -72,3 +90,5 @@ Capturas de tela:
 - Tela de listagem de contatos.
 - Tela de consulta por nome.
 - Tela de exclusao de contato.
+- Tela de alteracao de contato.
+- Tela de ordenacao alfabetica.
