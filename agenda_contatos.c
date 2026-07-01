@@ -34,8 +34,12 @@ void gotoxy(int x, int y) {
 }
 
 void limparTela() {
+#ifdef _WIN32
+    system("cls");
+#else
     printf("\033[2J");
     gotoxy(1, 1);
+#endif
 }
 
 void cabecalho() {
